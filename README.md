@@ -16,3 +16,8 @@ Install Todoist
 ```bash
 pip install todoist
 ```
+
+Install Tox
+```bash
+pip install tox
+```
