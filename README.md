@@ -35,3 +35,13 @@ supervisorctl
 reload
 status
 ```
+
+# Creating Tasks
+Tasks can be created using todo class
+```python
+import todo
+t = todo.Todo()
+t.task('test')
+t.add_reminder()
+t.commit()
+```

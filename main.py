@@ -17,7 +17,7 @@ class TestHandler(tornado.web.RequestHandler):
 
 class WashingHandler(tornado.web.RequestHandler):
     def get(self):
-        todo.todo()
+        todo.task('Empty the washing machine')
         self.write("Success")
 
 
