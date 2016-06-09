@@ -36,16 +36,11 @@ def getLabel(config, labelName = 'low_energy'):
         if label['name'] == labelName:
             return label['id']
 
+def add_reminder(id, config, key, api):
+    api.reminders.add(id, service='email', type='location', name=config.get_config('location', key), loc_lat=config.get_config('lat', key), loc_long=config.get_config('lon', key), loc_trigger='on_enter', radius=100)
 
 def todo():
-    config = TodoConfig()
-    api = getApi(config.get_config('key'))
-    todoconfig = getConfig(api)
-    projectId = getProject(todoconfig)
-    labelId = getLabel(todoconfig)
-    item = api.items.add('Empty the washing machine', projectId, date_string='Today', labels=[labelId], priority=2)
-    reminder = api.reminders.add(item['id'], service='email', type='location', name=config.get_config('location'), loc_lat=config.get_config('lat'), loc_long=config.get_config('lon'), loc_trigger='on_enter', radius=100)
-    print api.commit()
+    task('Empty the washing machine')
 
 def task(message):
     config = TodoConfig()
@@ -54,7 +49,7 @@ def task(message):
     projectId = getProject(todoconfig)
     labelId = getLabel(todoconfig)
     item = api.items.add(message, projectId, date_string='Today', labels=[labelId], priority=2)
-    reminder = api.reminders.add(item['id'], service='email', type='location', name=config.get_config('location'), loc_lat=config.get_config('lat'), loc_long=config.get_config('lon'), loc_trigger='on_enter', radius=100)
+    add_reminder(item['id'], config, 'todoist', api)
     print api.commit()
 
 def task_station(message):
@@ -64,5 +59,5 @@ def task_station(message):
     projectId = getProject(todoconfig)
     labelId = getLabel(todoconfig)
     item = api.items.add(message, projectId, date_string='Today', labels=[labelId], priority=2)
-    reminder = api.reminders.add(item['id'], service='email', type='location', name=config.get_config('location', 'geo_station'), loc_lat=config.get_config('lat', 'geo_station'), loc_long=config.get_config('lon', 'geo_station'), loc_trigger='on_enter', radius=100)
+    add_reminder(item['id'], config, 'geo_station', api)
     print api.commit()
