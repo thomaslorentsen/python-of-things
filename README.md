@@ -37,7 +37,12 @@ status
 ```
 
 # Creating Tasks
-Tasks can be created with a POST request
+Tasks can be created with a POST request.
+The following will create a task that will display a reminder when I arrive home.
 ```bash
-curl -X POST http://localhost:5000/todo/remind/me/at/station -d "Test add reminder"
+curl -X POST http://localhost:5000/todo/remind/me -d "I will be reminded when I get home"
+```
+Tasks can be created with a reminder at alternative locations.
+```bash
+curl -X POST http://localhost:5000/todo/remind/me/at/station -d "I will be reminded when I arrive at the station"
 ```
