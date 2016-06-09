@@ -1,5 +1,7 @@
-# python-of-things
+# Python of things
 A Python based http server that integrates to the Internet of Things
+
+This script can be used in conjunction with IFTTT to perform various tasks.
 
 # Installation
 Install Pip
@@ -20,4 +22,16 @@ pip install todoist
 Install Tox
 ```bash
 pip install tox
+```
+
+# Supervisor Installation
+Install supervisor
+```bash
+apt-get install supervisor
+```
+Copy the config to ```/etc/supervisord/conf.d/pyhttp.conf``` and then restart supervisor
+```bash
+supervisorctl
+reload
+status
 ```
