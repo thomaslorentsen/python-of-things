@@ -32,6 +32,12 @@ class WashingMpcPause(tornado.web.RequestHandler):
         mpc.pause()
         self.write("Success")
 
+class TodoRemindMe(tornado.web.RequestHandler):
+    def post(self):
+        message = self.request.body
+        todo.task(message)
+        self.write("Success")
+
 
 def make_app():
     return tornado.web.Application([
@@ -40,6 +46,7 @@ def make_app():
         (r"/washing", WashingHandler),
         (r"/mpc/play", WashingMpcPlay),
         (r"/mpc/pause", WashingMpcPause),
+        (r"/todo/remind/me", TodoRemindMe),
     ])
 
 
