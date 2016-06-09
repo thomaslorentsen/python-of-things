@@ -21,16 +21,35 @@ class Todo:
     config = False
     api = False
 
+    todo_config = False
+
     task_item = False
     project_id = False
     label_id = False
 
     def __init__(self):
         self.config = TodoConfig()
-        self.api = getApi(self.config.get_config('key'))
-        todo_config = getConfig(self.api)
-        self.project_id = getProject(todo_config)
-        self.label_id = getLabel(todo_config)
+        self.api = self.__get_api(self.config.get_config('key'))
+        self.todo_config = self.__get_config()
+        self.project_id = self.__get_project()
+        self.label_id = self.__get_label()
+
+    @staticmethod
+    def __get_api(key):
+        return todoist.TodoistAPI(key)
+
+    def __get_config(self):
+        return self.api.sync(resource_types=['projects', 'labels'])
+
+    def __get_project(self, project_name = 'Home'):
+        for project in self.todo_config['Projects']:
+            if project['name'] == project_name:
+                return project['id']
+
+    def __get_label(self, label_name = 'low_energy'):
+        for label in self.todo_config['Labels']:
+            if label['name'] == label_name:
+                return label['id']
 
     def task(self, message):
         self.task_item = self.api.items.add(message, self.project_id,
@@ -43,29 +62,6 @@ class Todo:
 
     def commit(self):
         print self.api.commit()
-
-def getApi(key):
-    return todoist.TodoistAPI(key)
-
-
-def getConfig(api):
-    return api.sync(resource_types=['projects', 'labels'])
-
-
-def getProject(config, projectName = 'Home'):
-    for project in config['Projects']:
-        if project['name'] == projectName:
-            return project['id']
-
-
-def getLabel(config, labelName = 'low_energy'):
-    for label in config['Labels']:
-        if label['name'] == labelName:
-            return label['id']
-
-
-def add_reminder(id, config, key, api):
-    api.reminders.add(id, service='email', type='location', name=config.get_config('location', key), loc_lat=config.get_config('lat', key), loc_long=config.get_config('lon', key), loc_trigger='on_enter', radius=100)
 
 
 def task(message):
