@@ -37,11 +37,7 @@ status
 ```
 
 # Creating Tasks
-Tasks can be created using todo class
-```python
-import todo
-t = todo.Todo()
-t.task('test')
-t.add_reminder()
-t.commit()
+Tasks can be created with a POST request
+```bash
+curl -X POST http://localhost:5000/todo/remind/me/at/station -d "Test add reminder"
 ```

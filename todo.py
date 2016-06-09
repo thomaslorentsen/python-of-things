@@ -8,12 +8,13 @@ class TodoConfig:
     def __init__(self):
         self.config = self.__load_config()
 
-    def __load_config(self):
+    @staticmethod
+    def __load_config():
         config = ConfigParser.ConfigParser()
         config.read('config/config.conf')
         return config
 
-    def get_config(self, option, config = 'todoist'):
+    def get_config(self, option, config='todoist'):
         return self.config.get(config, option)
 
 
@@ -41,12 +42,12 @@ class Todo:
     def __get_config(self):
         return self.api.sync(resource_types=['projects', 'labels'])
 
-    def __get_project(self, project_name = 'Home'):
+    def __get_project(self, project_name='Home'):
         for project in self.todo_config['Projects']:
             if project['name'] == project_name:
                 return project['id']
 
-    def __get_label(self, label_name = 'low_energy'):
+    def __get_label(self, label_name='low_energy'):
         for label in self.todo_config['Labels']:
             if label['name'] == label_name:
                 return label['id']
