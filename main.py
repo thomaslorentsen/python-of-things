@@ -38,6 +38,12 @@ class TodoRemindMe(tornado.web.RequestHandler):
         todo.task(message)
         self.write("Success")
 
+class TodoRemindMeAtStation(tornado.web.RequestHandler):
+    def post(self):
+        message = self.request.body
+        todo.task_station(message)
+        self.write("Success")
+
 
 def make_app():
     return tornado.web.Application([
@@ -47,6 +53,7 @@ def make_app():
         (r"/mpc/play", WashingMpcPlay),
         (r"/mpc/pause", WashingMpcPause),
         (r"/todo/remind/me", TodoRemindMe),
+        (r"/todo/remind/me/at/station", TodoRemindMeAtStation),
     ])
 
 
