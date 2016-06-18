@@ -53,13 +53,21 @@ class Todo:
                 return label['id']
 
     def task(self, message):
-        self.task_item = self.api.items.add(message, self.project_id,
-                                            date_string='Today', labels=[self.label_id], priority=2)
+        self.task_item = self.api.items.add(message,
+                                            self.project_id,
+                                            date_string='Today',
+                                            labels=[self.label_id],
+                                            priority=2)
 
     def add_reminder(self, key='todoist'):
-        self.api.reminders.add(self.task_item['id'], service='email', type='location', name=self.config.get_config('location', key),
-                          loc_lat=self.config.get_config('lat', key), loc_long=self.config.get_config('lon', key),
-                          loc_trigger='on_enter', radius=100)
+        self.api.reminders.add(self.task_item['id'],
+                               service='email',
+                               type='location',
+                               name=self.config.get_config('location', key),
+                               loc_lat=self.config.get_config('lat', key),
+                               loc_long=self.config.get_config('lon', key),
+                               loc_trigger='on_enter',
+                               radius=100)
 
     def commit(self):
         print self.api.commit()
