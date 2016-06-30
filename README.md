@@ -36,6 +36,12 @@ reload
 status
 ```
 
+# Running locally
+The script can be run without supervisor for testing.
+```bash
+python main.py
+```
+
 # Creating Tasks
 Tasks can be created with a POST request.
 The following will create a task that will display a reminder when I arrive home.

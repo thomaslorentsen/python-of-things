@@ -32,7 +32,7 @@ class Todo:
         self.config = TodoConfig()
         self.api = self.__get_api(self.config.get_config('key'))
         self.todo_config = self.__get_config()
-        self.project_id = self.__get_project()
+        self.project_id = self.__get_project(self.config.get_config('project'))
         self.label_id = self.__get_label()
 
     @staticmethod
@@ -42,7 +42,7 @@ class Todo:
     def __get_config(self):
         return self.api.sync(resource_types=['projects', 'labels'])
 
-    def __get_project(self, project_name='Home'):
+    def __get_project(self, project_name='Personal'):
         for project in self.todo_config['Projects']:
             if project['name'] == project_name:
                 return project['id']
