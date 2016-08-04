@@ -51,4 +51,6 @@ curl -X POST http://localhost:5000/todo/remind/me -d "I will be reminded when I 
 Tasks can be created with a reminder at alternative locations.
 ```bash
 curl -X POST http://localhost:5000/todo/remind/me/at/station -d "I will be reminded when I arrive at the station"
+curl -X POST http://localhost:5000/todo/remind/me/at/city -d "I will be reminded when I arrive at home in the city"
+curl -X POST http://localhost:5000/todo/remind/me/at/country -d "I will be reminded when I arrive at home in the country"
 ```
