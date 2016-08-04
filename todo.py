@@ -84,3 +84,9 @@ def task_station(message):
     t.task(message)
     t.add_reminder('geo_station')
     t.commit()
+
+def task_city(message):
+    t = Todo()
+    t.task(message)
+    t.add_reminder('geo_city')
+    t.commit()
