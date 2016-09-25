@@ -47,7 +47,7 @@ class Todo:
             if project['name'] == project_name:
                 return project['id']
 
-    def __get_label(self, label_name='low_energy'):
+    def __get_label(self, label_name='extra small'):
         for label in self.todo_config['Labels']:
             if label['name'] == label_name:
                 return label['id']
