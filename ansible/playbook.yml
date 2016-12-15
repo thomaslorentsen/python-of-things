@@ -11,10 +11,24 @@
     - name: Wait for service to start
       wait_for:
         port: 5000
-        delay: 1
-    - name: "Service is up"
+        delay: 3
+    - name: Service is up
       debug:
         msg: "Service has started listening"
+    - name: Test service
+      uri:
+        url: http://localhost:5000/todo/remind/me
+        method: POST
+        body: "This reminder was run by ansible"
+        status_code: 200
+        return_content: yes
+      register: webpage
+    - name: Display webpage
+      debug:
+        var: webpage
+    - name: Fail if Success is not in page content
+      fail:
+      when: "'Success' not in webpage.content"
   handlers:
     - name: Restart Service
       become: yes
