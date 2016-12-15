@@ -23,7 +23,6 @@ Install Tox
 ```bash
 pip install tox
 ```
-
 # Supervisor Installation
 Install supervisor
 ```bash
@@ -35,13 +34,11 @@ supervisorctl
 reload
 status
 ```
-
 # Running locally
 The script can be run without supervisor for testing.
 ```bash
 python main.py
 ```
-
 # Creating Tasks
 Tasks can be created with a POST request.
 The following will create a task that will display a reminder when I arrive home.
@@ -53,4 +50,8 @@ Tasks can be created with a reminder at alternative locations.
 curl -X POST http://localhost:5000/todo/remind/me/at/station -d "I will be reminded when I arrive at the station"
 curl -X POST http://localhost:5000/todo/remind/me/at/city -d "I will be reminded when I arrive at home in the city"
 curl -X POST http://localhost:5000/todo/remind/me/at/country -d "I will be reminded when I arrive at home in the country"
+```
+# Ansible
+```bash
+ansible-playbook --ask-sudo-pass -i ansible/hosts.ini ansible/playbook.yml
 ```

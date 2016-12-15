@@ -1,0 +1,15 @@
+---
+- hosts: all
+  tasks:
+    - name: Checkout Repo
+      git:
+        repo: https://github.com/thomaslorentsen/python-of-things.git
+        dest: /home/tom/python-of-things
+        update: yes
+      notify: Restart Service
+  handlers:
+    - name: Restart Service
+      become: yes
+      supervisorctl:
+        name: pyhttp
+        state: restarted
