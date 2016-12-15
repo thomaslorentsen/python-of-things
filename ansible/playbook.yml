@@ -1,21 +1,20 @@
 ---
 - hosts: all
   tasks:
-    - name: Move file
-      shell: mv /home/tom/python-of-things/config/config.conf /home/tom/python-of-things/config/config.ini
-        args:
-          creates: /home/tom/python-of-things/config/config.ini
     - name: Checkout Repo
       git:
         repo: https://github.com/thomaslorentsen/python-of-things.git
         dest: /home/tom/python-of-things
         update: yes
       notify: Restart Service
+  post_tasks:
     - name: Wait for service to start
-      port: 5000
+      wait_for:
+        port: 5000
         delay: 1
-    - debug:
-      msg: "Service has started listening"
+    - name: "Service is up"
+      debug:
+        msg: "Service has started listening"
   handlers:
     - name: Restart Service
       become: yes
