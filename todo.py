@@ -11,7 +11,7 @@ class TodoConfig:
     @staticmethod
     def __load_config():
         config = ConfigParser.ConfigParser()
-        config.read('config/config.conf')
+        config.read('config/config.ini')
         return config
 
     def get_config(self, option, config='todoist'):
