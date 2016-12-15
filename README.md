@@ -53,5 +53,5 @@ curl -X POST http://localhost:5000/todo/remind/me/at/country -d "I will be remin
 ```
 # Ansible
 ```bash
-ansible-playbook --ask-sudo-pass -i ansible/hosts.ini ansible/playbook.yml
+ansible-playbook -i ansible/hosts.ini ansible/playbook.yml
 ```
