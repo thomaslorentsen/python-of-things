@@ -47,7 +47,7 @@ class Todo:
             if project['name'] == project_name:
                 return project['id']
 
-    def __get_label(self, label_name='extra_small'):
+    def __get_label(self, label_name='ifttt'):
         for label in self.todo_config['Labels']:
             if label['name'] == label_name.lstrip('@'):
                 return label['id']
@@ -81,7 +81,7 @@ class Todo:
         labels = []
         for match in matches:
             label_id = self.__get_label(match)
-            if label_id != None:
+            if label_id is not None:
                 labels.append(label_id)
         return labels
 
