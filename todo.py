@@ -44,7 +44,7 @@ class Todo:
 
     def __get_project(self, project_name='Personal'):
         for project in self.todo_config['Projects']:
-            if project['name'] == project_name:
+            if project['name'] == project_name.lstrip('#'):
                 return project['id']
 
     def __get_label(self, label_name='ifttt'):
@@ -54,11 +54,13 @@ class Todo:
 
     def task(self, message):
         labels = self.parse_labels(message) + [self.label_id]
-        message = ''.join(re.split('@[a-z_]+ ?', message))
+        project = self.parse_project(message)
+        message = ''.join(re.split('[@][a-z_]+ ?', message))
+        message = ''.join(re.split('[#][A-Za-z_]+ ?', message))
         task_tuple = {'date_string': 'Today',
                 'labels': labels,
                 'priority': 2}
-        self.task_item = self.api.items.add(message, self.project_id, **task_tuple)
+        self.task_item = self.api.items.add(message, project, **task_tuple)
 
     def add_reminder(self, key='todoist'):
         reminder_tuple = {'service': 'email',
@@ -73,6 +75,17 @@ class Todo:
     def commit(self):
         print self.api.commit()
 
+    def parse_project(self, message):
+        """
+        Parse project from message and returns id
+        """
+        matches = re.findall('#[A-Za-z_]+', message)
+        for match in matches:
+            project = self.__get_project(match)
+            if project is not None:
+                return project
+        return self.project_id
+
     def parse_labels(self, message):
         """
         Parses labels from message and returns an array of ids
@@ -84,7 +97,6 @@ class Todo:
             if label_id is not None:
                 labels.append(label_id)
         return labels
-
 
 def task(message):
     t = Todo()
