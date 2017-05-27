@@ -1,6 +1,6 @@
 import todoist
 import ConfigParser
-
+import re
 
 class TodoConfig:
     config = False
@@ -49,12 +49,14 @@ class Todo:
 
     def __get_label(self, label_name='extra_small'):
         for label in self.todo_config['Labels']:
-            if label['name'] == label_name:
+            if label['name'] == label_name.lstrip('@'):
                 return label['id']
 
     def task(self, message):
+        labels = self.parse_labels(message) + [self.label_id]
+        message = ''.join(re.split('@[a-z_]+ ?', message))
         task_tuple = {'date_string': 'Today',
-                'labels': [self.label_id],
+                'labels': labels,
                 'priority': 2}
         self.task_item = self.api.items.add(message, self.project_id, **task_tuple)
 
@@ -70,6 +72,18 @@ class Todo:
 
     def commit(self):
         print self.api.commit()
+
+    def parse_labels(self, message):
+        """
+        Parses labels from message and returns an array of ids
+        """
+        matches = re.findall('@[a-z_]+', message)
+        labels = []
+        for match in matches:
+            label_id = self.__get_label(match)
+            if label_id != None:
+                labels.append(label_id)
+        return labels
 
 
 def task(message):
