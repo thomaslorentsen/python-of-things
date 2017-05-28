@@ -96,8 +96,8 @@ class Todo:
         for match in matches:
             label_id = self.__get_label(match)
             if label_id is not None:
+                message = ''.join(re.split(match + ' ?', message))
                 labels.append(label_id)
-        message = ''.join(re.split('[@][a-z_]+ ?', message))
         return message, labels
 
 
