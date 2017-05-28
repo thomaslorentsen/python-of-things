@@ -2,6 +2,7 @@ import todoist
 import ConfigParser
 import re
 
+
 class TodoConfig:
     config = False
 
@@ -53,10 +54,9 @@ class Todo:
                 return label['id']
 
     def task(self, message):
-        labels = self.parse_labels(message) + [self.label_id]
-        project = self.parse_project(message)
-        message = ''.join(re.split('[@][a-z_]+ ?', message))
-        message = ''.join(re.split('[#][A-Za-z_]+ ?', message))
+        message, labels = self.parse_labels(message)
+        labels += [self.label_id]
+        message, project = self.parse_project(message)
         task_tuple = {'date_string': 'Today',
                 'labels': labels,
                 'priority': 2}
@@ -83,8 +83,9 @@ class Todo:
         for match in matches:
             project = self.__get_project(match)
             if project is not None:
-                return project
-        return self.project_id
+                message = ''.join(re.split(match + ' ?', message))
+                return message, project
+        return message, self.project_id
 
     def parse_labels(self, message):
         """
@@ -96,7 +97,9 @@ class Todo:
             label_id = self.__get_label(match)
             if label_id is not None:
                 labels.append(label_id)
-        return labels
+        message = ''.join(re.split('[@][a-z_]+ ?', message))
+        return message, labels
+
 
 def task(message):
     t = Todo()

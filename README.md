@@ -52,6 +52,7 @@ curl -X POST http://localhost:5000/todo/remind/me/at/city -d "I will be reminded
 curl -X POST http://localhost:5000/todo/remind/me/at/country -d "I will be reminded when I arrive at home in the country"
 ```
 # Ansible
+Deploy this with ansible
 ```bash
 ansible-playbook -i ansible/hosts.ini ansible/playbook.yml
 ```
