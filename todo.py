@@ -43,12 +43,12 @@ class Todo:
         return self.api.sync()
 
     def __get_project(self, project_name='Personal'):
-        projects = self.api.projects.all(lambda x: x['name'] == module.params['project'])
+        projects = self.api.projects.all(lambda x: x['name'] == project_name)
         project = projects.pop()
         return project['id']
 
     def __get_label(self, label_name='ifttt'):
-        labels = self.api.labels.all(lambda x: x['name'] == label)
+        labels = self.api.labels.all(lambda x: x['name'] == label_name)
         label = labels.pop()
         return label['id']
         for label in self.todo_config['Labels']:
