@@ -41,7 +41,7 @@ class Todo:
         return todoist.TodoistAPI(key)
 
     def __get_config(self):
-        return self.api.sync(resource_types=['projects', 'labels'])
+        return self.api.sync()
 
     def __get_project(self, project_name='Personal'):
         for project in self.todo_config['Projects']:
