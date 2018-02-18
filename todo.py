@@ -2,7 +2,6 @@ import todoist
 import ConfigParser
 import re
 
-
 class TodoConfig:
     config = False
 
@@ -44,11 +43,14 @@ class Todo:
         return self.api.sync()
 
     def __get_project(self, project_name='Personal'):
-        for project in self.todo_config['Projects']:
-            if project['name'] == project_name.lstrip('#'):
-                return project['id']
+        projects = self.api.projects.all(lambda x: x['name'] == module.params['project'])
+        project = projects.pop()
+        return project['id']
 
     def __get_label(self, label_name='ifttt'):
+        labels = self.api.labels.all(lambda x: x['name'] == label)
+        label = labels.pop()
+        return label['id']
         for label in self.todo_config['Labels']:
             if label['name'] == label_name.lstrip('@'):
                 return label['id']
