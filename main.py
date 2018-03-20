@@ -15,13 +15,13 @@ class TestHandler(tornado.web.RequestHandler):
         self.write("Hello %s" % name)
 
 
-class WashingMpcPlay(tornado.web.RequestHandler):
+class MpcPlay(tornado.web.RequestHandler):
     def get(self):
         mpc.play()
         self.write("Success")
 
 
-class WashingMpcPause(tornado.web.RequestHandler):
+class MpcPause(tornado.web.RequestHandler):
     def get(self):
         mpc.pause()
         self.write("Success")
@@ -52,8 +52,8 @@ def make_app():
     return tornado.web.Application([
         (r"/", MainHandler),
         (r"/test/([a-z]+)", TestHandler),
-        (r"/mpc/play", WashingMpcPlay),
-        (r"/mpc/pause", WashingMpcPause),
+        (r"/mpc/play", MpcPlay),
+        (r"/mpc/pause", MpcPause),
         (r"/todo/remind/me", TodoRemindMe),
         (r"/todo/remind/me/at/country", TodoRemindMe),
         (r"/todo/remind/me/at/station", TodoRemindMeAtStation),
