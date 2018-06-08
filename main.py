@@ -7,7 +7,7 @@ import mpc
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        self.write("Hello, world")
+        self.write("Hello World")
 
 
 class TestHandler(tornado.web.RequestHandler):
@@ -18,34 +18,34 @@ class TestHandler(tornado.web.RequestHandler):
 class MpcPlay(tornado.web.RequestHandler):
     def get(self):
         mpc.play()
-        self.write("Success")
+        self.write("Done")
 
 
 class MpcPause(tornado.web.RequestHandler):
     def get(self):
         mpc.pause()
-        self.write("Success")
+        self.write("Done")
 
 
 class TodoRemindMe(tornado.web.RequestHandler):
     def post(self):
         message = self.request.body
         todo.task(message)
-        self.write("Success")
+        self.write("Done")
 
 
 class TodoRemindMeAtStation(tornado.web.RequestHandler):
     def post(self):
         message = self.request.body
         todo.task_station(message)
-        self.write("Success")
+        self.write("Done")
 
 
 class TodoRemindMeAtCity(tornado.web.RequestHandler):
     def post(self):
         message = self.request.body
         todo.task_city(message)
-        self.write("Success")
+        self.write("Done")
 
 
 def make_app():
