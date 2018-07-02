@@ -43,17 +43,14 @@ class Todo:
         return self.api.sync()
 
     def __get_project(self, project_name='Personal'):
-        projects = self.api.projects.all(lambda x: x['name'] == project_name)
+        projects = self.api.projects.all(lambda x: x['name'] == project_name.lstrip('#'))
         project = projects.pop()
         return project['id']
 
     def __get_label(self, label_name='ifttt'):
-        labels = self.api.labels.all(lambda x: x['name'] == label_name)
+        labels = self.api.labels.all(lambda x: x['name'] == label_name.lstrip('@'))
         label = labels.pop()
         return label['id']
-        for label in self.todo_config['Labels']:
-            if label['name'] == label_name.lstrip('@'):
-                return label['id']
 
     def task(self, message):
         message, labels = self.parse_labels(message)

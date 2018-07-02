@@ -16,7 +16,7 @@ apt-get install python-tornado
 
 Install Todoist
 ```bash
-pip install todoist
+pip install todoist-python
 ```
 
 Install Tox
@@ -54,5 +54,7 @@ curl -X POST http://localhost:5000/todo/remind/me/at/country -d "I will be remin
 # Ansible
 Deploy this with ansible
 ```bash
-ansible-playbook -i ansible/hosts.ini ansible/playbook.yml
+ansible-playbook \
+    -i ansible/hosts.ini \
+    ansible/playbook.yml
 ```
