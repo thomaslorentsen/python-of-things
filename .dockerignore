@@ -1,0 +1,12 @@
+config
+ansible
+.tox
+build
+.gitignore
+.dockerignore
+Dockerfile
+Makefile
+MANIFEST
+README.md
+supervisor.http.conf
+tox.ini
